@@ -17,7 +17,6 @@ public class taller2 {
         System.out.println("[4] Mostrar Estudiantes que van a examen");
         System.out.println("[5] Mostrar estado de Estudiantes");
         System.out.println("[6] Salir");
-        System.out.println("7 mostrar estudiantes");
         String respuesta = teclado.next();
 
         switch (respuesta){
@@ -25,15 +24,13 @@ public class taller2 {
                 break;
             case "2": estudiantesAprobados(notas);
                 break;
-            case "3": //contarSismos5(notas);
+            case "3": estudiantesReprobados(notas);
                 break;
-            case "4": //enviarSMS(notas);
+            case "4": estudiantesAExamen(notas);
                 break;
-            case "5": //irni3nv(notas);
+            case "5": estadoEstudiantes(notas);
                 break;
             case "6": System.exit(0);
-                break;
-            case "7": mostrarMatriz(notas);
                 break;
             default:
                 System.out.println("Ingrese una opcion valida");
@@ -43,14 +40,60 @@ public class taller2 {
         menu(notas);
     }
 
-    private static void mostrarMatriz(double[][] notas) {
+    private static void estadoEstudiantes(double[][] notas) {
+        double[] ponderaciones = {0.25, 0.25, 0.25, 0.15, 0.10};
         for (int i = 0; i < 50; i++) {
-            for (int j = 0; j < 5; j++) {
-                System.out.print("["+notas[i][j]+"]" );
-                System.out.println();
-            }
+            double suma = 0;
+            if (notas[i][0]!=0)
+                for (int j = 0; j < 5; j++) {
+                    suma += notas[i][j]*ponderaciones[j];
+                }
 
+            if (notas[i][0]!=0){
+                System.out.println("Notas estudiante #"+(i+1));
+                for (int j = 0; j < 5; j++) {
+                    System.out.println(notas[i][j]);
+                }
+                System.out.println("Promedio estudiante #"+(i+1));
+                System.out.println(suma);
+            }
+            suma = 0;
         }
+
+    }
+
+
+    private static void estudiantesAExamen(double[][] notas) {
+        double[] ponderaciones = {0.25, 0.25, 0.25, 0.15, 0.10};
+
+        for (int i = 0; i < 50; i++) {
+            double suma = 0;
+            if (notas[i][0]!=0)
+                for (int j = 0; j < 5; j++) {
+                    suma += notas[i][j]*ponderaciones[j];
+                }
+            if (suma<4.0&&suma>=3.6) {
+                System.out.println("Estudiante #" + (i + 1) + " va a Examen");
+            }
+            suma = 0;
+        }
+    }
+
+    private static void estudiantesReprobados(double[][] notas) {
+        double[] ponderaciones = {0.25, 0.25, 0.25, 0.15, 0.10};
+
+        for (int i = 0; i < 50; i++) {
+            double suma = 0;
+            if (notas[i][0]!=0)
+                for (int j = 0; j < 5; j++) {
+                    suma += notas[i][j]*ponderaciones[j];
+                }
+            if (suma<4.0&&suma>0.5) {
+                System.out.println("Estudiante #" + (i + 1) + " Reprobó");
+            }
+            suma = 0;
+        }
+
     }
 
     private static void agregarEstudiante(double[][] notas) {
